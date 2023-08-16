@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ExamListApplication</string>
+    <string name="txt_exam_list">Exam List</string>
+    <string name="txt_filter_by_date">Filter by Date</string>
+    <string name="txt_filter_by_candidate">Filter by Candidate</string>
+    <string name="txt_filter_by_location">Filter by Location</string>
+    <string name="txt_date">Date :</string>
+    <string name="txt_location">Location :</string>
+    <string name="txt_Options">Options</string>
+    <string name="txt_tital">Title :</string>
+    <string name="txt_error_msg">"There is a error to fetching list or No items available"</string>
+    <string name="txt_description">Description:</string>
+    <string name="txt_candidate_name">Candidate Name :</string>
+    <string name="txt_email">EmailID :</string>
+    <string name="title_activity_map">MapActivity</string>
+
+</resources>
