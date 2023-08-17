@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">ExamListApplication</string>
+    <string name="txt_exam_list">Exam List</string>
+    <string name="txt_sort_by_date">Sort by Date</string>
+    <string name="txt_sort_by_candidate">Sort by Candidate</string>
+    <string name="txt_sort_by_location">Sort by Location</string>
+    <string name="txt_find_by_candidate_name">Find by Candidate Name</string>
+    <string name="txt_date">Date :</string>
+    <string name="txt_location">Location :</string>
+    <string name="txt_Options">Options</string>
+    <string name="txt_tital">Title :</string>
+    <string name="txt_error_msg">"There is a error to fetching list or No items available"</string>
+    <string name="txt_description">Description:</string>
+    <string name="txt_candidate_name">Candidate Name :</string>
+    <string name="txt_email">EmailID :</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="txt_close">Close </string>
+    <string name="txt_enter_name">“Enter Candidate Name” </string>
+    <string name="txt_save">Search </string>
+    <string name="txt_cancel">Cancel </string>
+   <string name="txt_filter_by_date">Filter by Date</string>
+    <string name="txt_filter_by_location">Filter by Location</string>
+    <string name="msg_select_date_range">Select date range to assign the chart </string>
+    <string name="txt_start_date">Start Date </string>
+    <string name="txt_endDate">End Date </string>
+    <string name="txt_open_picker">Open Date Picker </string>
+    <string name="txt_Conform_msg">Please Conform Start And End Day </string>
+</resources>
