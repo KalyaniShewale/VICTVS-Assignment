@@ -129,7 +129,7 @@ fun DateRangePickerDialog(showDialog:  MutableState<Boolean>,filterOption: (Filt
 fun getFormattedDate(timeInMillis: Long): String{
     val calender = Calendar.getInstance()
     calender.timeInMillis = timeInMillis
-    val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
     return dateFormat.format(calender.timeInMillis)
 }
 

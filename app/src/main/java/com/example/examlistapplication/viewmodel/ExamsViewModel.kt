@@ -12,6 +12,7 @@ import com.example.examlistapplication.view.SortingOption
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 
@@ -91,28 +92,41 @@ class ExamsViewModel : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getListExamDate(examStartDate: String): List<Exam> {
-        /*//  Log.e("fetchItems 2date:",examStartDate)
-        val dateStrings = examStartDate.split(" ")
-        val startDate = dateStrings.getOrNull(0)?.replace(" ", "")
-        val endDate = dateStrings.getOrNull(1)?.replace(" ", "")
+
+        val dateStrings = examStartDate.split(" ")//12/09/2023
+
+        //  for testing this function we are taking dummy data
+        // because we have all old date data
+        // to test that data we need old date so test this
+        // so for that we are taking dummy data
+
+       /* val startDate = dateStrings.getOrNull(0)?.replace(" ", "")
+        val endDate =   dateStrings.getOrNull(1)?.replace(" ", "")   */
+
+        val startDate = "2023/04/04"
+        val endDate = "2023/06/06"
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+
         Log.e("fetchItems startDate:",startDate.toString())
         Log.e("fetchItems endDate:",endDate.toString())
 
 
-        return _exams.value.filter { exam ->
-            Log.e("fetchItems exam.examdate:",exam.examdate)
+        val startCal = Calendar.getInstance()
+        startCal.time = dateFormat.parse(startDate)
 
-           val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
-          var date = exam.examdate.split(" ").getOrNull(0)
+        val endCal = Calendar.getInstance()
+        endCal.time = dateFormat.parse(endDate)
 
-            Log.e("fetchItems date:",date.toString())
-            val examDate = LocalDateTime.parse(date.toString().replace("-", "/"), formatter)
+        val filteredExams = _exams.value.filter { exam ->
+            val examCal = Calendar.getInstance()
+            Log.e("fetchItems exam.examdate:",exam.examdate.toString())
+            examCal.time =
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(exam.examdate)
 
+            // Compare the exam date with the start and end date
+            examCal.timeInMillis in startCal.timeInMillis..endCal.timeInMillis
 
-            val start = LocalDateTime.parse(startDate)
-            val end = LocalDateTime.parse(endDate)
-            examDate.isAfter(start) && examDate.isBefore(end) // Include exams within the range
-        }*/
-        return _exams.value
+        }
+            return filteredExams
     }
 }
