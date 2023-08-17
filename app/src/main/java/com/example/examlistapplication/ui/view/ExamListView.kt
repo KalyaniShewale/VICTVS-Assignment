@@ -1,7 +1,5 @@
 package com.example.examlistapplication.view
 
-
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,13 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Card
-import androidx.compose.material.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,6 +26,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.examlistapplication.R
 import com.example.examlistapplication.module.Exam
@@ -106,14 +102,17 @@ fun GetText(string1: String, string2: String) {
 @Composable
 fun GetTextOfLocation(exam: Exam, viewModel: ExamsViewModel) {
 
-    val endIndex = stringResource(id = R.string.txt_location).length
+    val endIndex = stringResource(id = R.string.txt_location).length + exam.locationname.length
     val context = LocalContext.current
     val showDialog = remember { mutableStateOf(false) }
     Text(
         text = buildAnnotatedString {
             append(stringResource(id = R.string.txt_location))
-            addStyle(style = SpanStyle(fontWeight = FontWeight.Bold), start = 0, end = endIndex)
+            addStyle(style = SpanStyle(fontWeight = FontWeight.Bold ,
+                textDecoration = TextDecoration.Underline, color = Color.Blue), start = 0, end = endIndex+1)
             append(" ")
+            addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline, color = Color.Blue),
+                start =0, end =  exam.locationname.length)
             append(exam.locationname )
         },
         modifier = Modifier

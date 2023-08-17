@@ -1,10 +1,13 @@
 package com.example.examlistapplication.viewmodel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.examlistapplication.module.Exam
 import com.example.examlistapplication.module.ExamApiClient
+import com.example.examlistapplication.module.FilterOption
 import com.example.examlistapplication.view.SortingOption
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -29,19 +32,22 @@ class ExamsViewModel : ViewModel() {
             } catch (e: Exception) {
                 // Handle error
                 _exams
-                Log.e("fetchItems Exception :-  ", e.toString())
-            } finally {
+              } finally {
                 _isLoading.value = false
             }
         }
     }
 
     //  initialize candidateExams list load from a data source.
-    fun getExamsList(sortingOption: SortingOption): List<Exam> {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getExamsList(sortingOption: SortingOption, filterOption: FilterOption): List<Exam> {
         return when (sortingOption) {
             SortingOption.DATE -> filterExamsByDate()
             SortingOption.LOCATION -> filterExamsByLocation()
             SortingOption.CANDIDATE -> filterExamsByCandidate()
+            SortingOption.CANDIDATENAME -> getListExamSameCandidate(filterOption.candidateName)
+            SortingOption.CANDIDATELOCATION -> getListExamSameLocation(filterOption.examLocation)
+            SortingOption.TIMEBETWEENTWOEXAM ->getListExamDate(filterOption.examStartAndEndDate)
         }
     }
 
@@ -63,11 +69,50 @@ class ExamsViewModel : ViewModel() {
         return _exams.value.sortedBy { it.locationname }
     }
 
-     fun getListOfCandidateName(locationName:String): List<String>{
-         // get all candidate of that location
-        val listOfCandidateName = _exams.value
-            .filter { it.locationname == locationName  }
+    fun getListOfCandidateName(locationName: String): List<String> {
+        // get all candidate of that location
+        return _exams.value
+            .filter { it.locationname == locationName }
             .map { it.candidatename }
-        return listOfCandidateName
+    }
+
+    fun getListExamSameCandidate(candidatename: String): List<Exam> {
+        // get list of Exam for same Candidate name
+        return _exams.value
+            .filter { it.candidatename.equals(candidatename, ignoreCase = true)
+            }
+    }
+
+    fun getListExamSameLocation(locationname: String): List<Exam> {
+        // get list of Exam for same Candidate location
+        return _exams.value
+            .filter { it.locationname.equals(locationname, ignoreCase = true)  }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getListExamDate(examStartDate: String): List<Exam> {
+        /*//  Log.e("fetchItems 2date:",examStartDate)
+        val dateStrings = examStartDate.split(" ")
+        val startDate = dateStrings.getOrNull(0)?.replace(" ", "")
+        val endDate = dateStrings.getOrNull(1)?.replace(" ", "")
+        Log.e("fetchItems startDate:",startDate.toString())
+        Log.e("fetchItems endDate:",endDate.toString())
+
+
+        return _exams.value.filter { exam ->
+            Log.e("fetchItems exam.examdate:",exam.examdate)
+
+           val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+          var date = exam.examdate.split(" ").getOrNull(0)
+
+            Log.e("fetchItems date:",date.toString())
+            val examDate = LocalDateTime.parse(date.toString().replace("-", "/"), formatter)
+
+
+            val start = LocalDateTime.parse(startDate)
+            val end = LocalDateTime.parse(endDate)
+            examDate.isAfter(start) && examDate.isBefore(end) // Include exams within the range
+        }*/
+        return _exams.value
     }
 }

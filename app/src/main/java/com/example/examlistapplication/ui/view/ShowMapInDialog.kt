@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.example.examlistapplication.R
 import com.example.examlistapplication.module.Exam
 import com.example.examlistapplication.view.MapViewWithPin
 
@@ -24,13 +26,11 @@ fun ShowMapViewDialog(showDialog: MutableState<Boolean>, exam: Exam, list: List<
             onDismissRequest = { showDialog.value = false },
             text = {
                 MapViewWithPin(exam,list)
-                /*val intent = Intent(LocalContext.current, MapActivity::class.java)
-            LocalContext.current.startActivity(intent)*/
 
             },
             confirmButton = {
                 TextButton(onClick = { showDialog.value = false }) {
-                    Text("Close")
+                    Text(stringResource(R.string.txt_close))
                 }
             },
             modifier = Modifier
